@@ -6,4 +6,9 @@
         <UseWPF>true</UseWPF>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="ChilkatDnCore" Version="9.5.0.86" />
+      <PackageReference Include="IronPython" Version="2.7.11" />
+    </ItemGroup>
+
 </Project>
