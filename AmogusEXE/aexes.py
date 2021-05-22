@@ -23,21 +23,21 @@ class Mailer:
         data = json.loads(j)["mail"]
         username = data["login"]
         password = data["password"]
-        return {"name": username, "pass": password}
+        return {"name": username, "pass": password, "receiver": data["receiver"]}
 
     @staticmethod
-    def send(data, receiver, message):
+    def send(data, message):
         global server
         try:
             server = smtplib.SMTP(smtp_server, port)
             server.starttls(context=context)
             server.login(data["name"], data["pass"])
-            server.sendmail(data["pass"], receiver, message)
+            server.sendmail(data["pass"], data["receiver"], message)
         except Exception as e:
             print(e)
         finally:
             server.quit()
 
+
 x = str(sys.argv[1])
-y = str(sys.argv[2])
-Mailer.send(Mailer.parse_json(Mailer.get_data()), x, y)
+Mailer.send(Mailer.parse_json(Mailer.get_data()), x)
