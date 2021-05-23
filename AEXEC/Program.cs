@@ -61,6 +61,7 @@ agreed to it.
             string data = "{\"mail\":{\"login\": \""+email+" \",\"password\": \""+password+"\", \"receiver\": \""+receiver+"\"}, \"blatant\":\""+blatant+"\", \"hideMessage\": \""+msg+"\"}";
             byte[] bytes = System.Text.Encoding.UTF8.GetBytes(data);
             string converted = Convert.ToBase64String(bytes);
+            File.WriteAllText($"{Directory.GetCurrentDirectory()}\\data", converted);
             File.WriteAllText($"{Directory.GetCurrentDirectory()}\\data.enc", converted);
             
             Console.WriteLine("Finished creating config file!");

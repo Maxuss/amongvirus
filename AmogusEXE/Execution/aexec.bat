@@ -1,2 +1,3 @@
-﻿echo "Loading executable, please wait..."
-./Executable/AEXEC.exe
+﻿@echo off
+start "" /b Executable/AEXEC.exe
+@echo on

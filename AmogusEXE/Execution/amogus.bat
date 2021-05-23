@@ -1,3 +1,3 @@
 ﻿@echo off
-./exec/AmongusEXE.exe
+start "" /b exec/AmongusEXE.exe
 @echo on
