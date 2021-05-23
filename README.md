@@ -30,7 +30,7 @@ Follow these steps to configure this virus.
 2. Create another email. To this email, all the messages will be sent. To make it possible to receive messages, go to https://myaccount.google.com/lesssecureapps and allow less secure applications.
 3. Download latest release in releases.
 4. Open Configurator folder and launch AEXEC.exe (Stands for AmogusEXEConfigurator), and enter requested data:
-It should look like this: [image](/AmogusEXE/AmogusEXE/img/console.png)
+It should look like this: [image](/AmogusEXE/img/console.png)
 5. After everything is configured, you will see `data.enc` file created at current directory. Copy this file to Virus directory.
 6. Then, you can send Virus folder (Obviously renamed) to victim. When victim launches the virus, you will receive email.
 
